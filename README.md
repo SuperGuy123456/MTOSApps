@@ -37,13 +37,9 @@ For those using the **ESP32-2432S028R**, you can simply download the `.ino` file
 4. The ESP32 reads the file from SD and flashes it using the `Update` class  
 5. If flashing succeeds, the device reboots into the new firmware  
 
-## 🧪 Example Usage
+## Prepping the SD card
 
-```cpp
-const char* binURL = "https://yourdomain.com/firmware/appname.bin";
-downloadToSD(binURL, "/update.bin");
-flashFromSD("/update.bin");
-```
+You **need** a folder called ```vpaths``` in the root directory of the sd card. This will ensure that MTOS can download the vpath files into the folder. Without it, after downloading the ```binpath.txt``` file, it will display a error while downloading the vpath files.
 
 ## 🧑‍⚖️ License
 
