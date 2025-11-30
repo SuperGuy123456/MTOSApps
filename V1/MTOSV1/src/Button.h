@@ -16,3 +16,18 @@ private:
     Vector2 size;
     int textcolor, bgcolor, fontsize;
 };
+
+//Just a simple rectangle/square that can detect mouse press (no ui) for things like images
+class InvisButton
+{
+public:
+    InvisButton(int x, int y, int width, int height);
+    ~InvisButton();
+
+    void ChangeWidth(int _w, int _h);
+
+    bool CheckPress();
+private:
+    Vector2 pos;
+    Vector2 size;
+};

@@ -40,3 +40,35 @@ void SimpleButton::Draw()
     lcd.fillRect(pos.x, pos.y, size.x, size.y, TFT_RED);
     API::DrawText(name, pos.x, pos.y, textcolor, bgcolor, fontsize, true, false);
 }
+
+//For invisible button
+
+InvisButton::InvisButton(int x, int y, int width, int height)
+{
+    pos.x = x;
+    pos.y = y;
+
+    size.x = width;
+    size.y = height;
+}
+
+InvisButton::~InvisButton(){};
+
+void InvisButton::ChangeWidth(int _w, int _h)
+{
+    size.x = _w;
+    size.y = _h;
+}
+
+bool InvisButton::CheckPress()
+{
+    Vector2 coord;
+    if (API::PollTouch(coord))
+    {
+        if ((coord.x > pos.x and coord.x < pos.x+size.x) and (coord.y > pos.y and coord.y < pos.y + size.y))
+        {
+            return true;
+        }
+    }
+    return false;
+}

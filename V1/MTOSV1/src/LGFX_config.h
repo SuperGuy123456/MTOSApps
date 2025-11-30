@@ -8,9 +8,9 @@ class LGFX : public lgfx::LGFX_Device {
 
 public:
   LGFX(void) {
-    { // ---- VSPI bus for TFT ----
+    { // ---- HSPI bus for TFT ----
       auto cfg = _bus_tft.config();
-      cfg.spi_host   = VSPI_HOST;   // CYD uses VSPI, not HSPI
+      cfg.spi_host   = HSPI_HOST;   // CYD uses HSPI for TFT
       cfg.pin_sclk   = 14;
       cfg.pin_mosi   = 13;
       cfg.pin_miso   = 12;
@@ -22,32 +22,29 @@ public:
     }
 
     { // ---- TFT panel config ----
-      auto cfg = _panel.config();
-      cfg.pin_cs   = 15;
-      cfg.pin_rst  = -1; // tied to EN
-      cfg.panel_width  = 240;
-      cfg.panel_height = 320;
-      cfg.readable = true;
-      cfg.bus_shared = true;
-      _panel.config(cfg);
+      auto pcfg = _panel.config();
+      pcfg.pin_cs   = 15;
+      pcfg.pin_rst  = -1;
+      pcfg.bus_shared = false;      // TFT is on its own bus
+      _panel.config(pcfg);
     }
 
     { // ---- Touch controller config (dedicated pins) ----
-      auto cfg = _touch.config();
-      cfg.spi_host = -1;       // bit-bang mode
-      cfg.pin_cs   = 33;       // TOUCH_CS
-      cfg.pin_sclk = 25;       // TOUCH_CLK
-      cfg.pin_mosi = 32;       // TOUCH_MOSI
-      cfg.pin_miso = 39;       // TOUCH_MISO
-      cfg.freq     = 2500000;
-      cfg.x_min    = 0;
-      cfg.x_max    = 240;
-      cfg.y_min    = 0;
-      cfg.y_max    = 320;
-      _touch.config(cfg);
+      auto tcfg = _touch.config();
+      tcfg.spi_host = -1;           // bit-bang mode
+      tcfg.pin_cs   = 33;
+      tcfg.pin_sclk = 25;
+      tcfg.pin_mosi = 32;
+      tcfg.pin_miso = 39;
+      tcfg.freq     = 2500000;
+      tcfg.bus_shared = false;      // independent pins
+      tcfg.x_min    = 0;
+      tcfg.x_max    = 240;
+      tcfg.y_min    = 0;
+      tcfg.y_max    = 320;
+      _touch.config(tcfg);
       _panel.setTouch(&_touch);
     }
-
 
     setPanel(&_panel);
   }
