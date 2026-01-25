@@ -26,3 +26,8 @@ Clock#App that tells the time#https://DownloadLink.com#https://DownloadLinkForCl
 # **OR EVEN**
 
 Clock#App that tells the time#https://DownloadLink.com#https://DownloadLinkForClockFaceImage.png,https://DownloadLinkForSoundEffect.wav!
+
+
+# Download Link format
+
+https://raw.githubusercontent.com/SuperGuy123456/MTOSApps/main/HelloWorldTest/HelloWorldTest.wasm
