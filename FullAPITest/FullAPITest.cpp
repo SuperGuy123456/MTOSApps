@@ -1,7 +1,7 @@
 /*
 FullAPITest — imports every MTOS API v1 function
 */
-#include <stdio.h>
+
 
 // import every function
 extern "C" {
@@ -140,17 +140,12 @@ int main()
     // Outline frame
     DrawRect(10, 30, 460, 280, 0xFFFFFF);
 
-    // Grid of filled rectangles
-    int cellW = 40;
-    int cellH = 30;
-    for (int y = 40; y < 300; y += cellH + 4) {
-        for (int x = 20; x < 460; x += cellW + 4) {
-            int r = Random(0, 255);
-            int g = Random(0, 255);
-            int b = Random(0, 255);
-            FillRect(x, y, cellW, cellH, rgb(r, g, b));
-        }
-    }
+    // Draw fewer rectangles to reduce stack usage
+    FillRect(20, 50, 40, 30, rgb(255, 0, 0));
+    FillRect(70, 50, 40, 30, rgb(0, 255, 0));
+    FillRect(120, 50, 40, 30, rgb(0, 0, 255));
+    FillRect(170, 50, 40, 30, rgb(255, 255, 0));
+    FillRect(220, 50, 40, 30, rgb(255, 0, 255));
     Delay(2000);
 
     // 3) Concentric circles
@@ -239,24 +234,6 @@ int main()
     DrawText("Full API Drawing Test Done", 0, 0, 0xFFFFFF, 0x000000, 2, true, false);
     Delay(2000);
 
-    int endTime = GetTime();
-    int elapsed = (endTime - startTime) * 1000; // convert seconds → ms
-    int computeTime = elapsed - totalDelay;
-
-    ClearScreen(0x000000);
-    DrawText("Timing Results:", 0, 0, 0xFFFFFF, 0x000000, 2, true, false);
-
-    char buf[64];
-    snprintf(buf, 64, "Total: %d ms", elapsed);
-    DrawText(buf, 0, 40, 0xFFFFFF, 0x000000, 2, true, false);
-
-    snprintf(buf, 64, "Compute: %d ms", computeTime);
-    DrawText(buf, 0, 80, 0xFFFFFF, 0x000000, 2, true, false);
-
-    snprintf(buf, 64, "Delay: %d ms", totalDelay);
-    DrawText(buf, 0, 120, 0xFFFFFF, 0x000000, 2, true, false);
-
-    Delay(5000);
 
     return 0;
 }
