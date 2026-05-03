@@ -1,2 +1,3 @@
-HelloWorldTest#Tests Wasm#1#https://raw.githubusercontent.com/SuperGuy123456/MTOSApps/main/HelloWorldTest/HelloWorldTest.wasm#https://raw.githubusercontent.com/SuperGuy123456/MTOSApps/main/HelloWorldTest/AssetTest1.png,https://raw.githubusercontent.com/SuperGuy123456/MTOSApps/main/HelloWorldTest/AssetTest2.png!
-FullAPITest#Tests The Draw Functions Right Now...#2#https://raw.githubusercontent.com/SuperGuy123456/MTOSApps/main/FullAPITest/FullAPITest.wasm#N/A!
+HelloWorldTest#Tests Wasm \nDEPRECIATED (no more wasm)#1#https://raw.githubusercontent.com/SuperGuy123456/MTOSApps/main/HelloWorldTest/HelloWorldTest.wasm#https://raw.githubusercontent.com/SuperGuy123456/MTOSApps/main/HelloWorldTest/AssetTest1.png,https://raw.githubusercontent.com/SuperGuy123456/MTOSApps/main/HelloWorldTest/AssetTest2.png!
+FullAPITest#Tests The Draw Functions Right Now... \nDEPRECIATED (no more wasm)#2#https://raw.githubusercontent.com/SuperGuy123456/MTOSApps/main/FullAPITest/FullAPITest.wasm#N/A!
+LuaBenchMark#Benchmark for Lua apps#1#https://raw.githubusercontent.com/SuperGuy123456/MTOSApps/main/LuaBenchMark/Benchmark.lua#N/A!

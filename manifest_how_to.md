@@ -12,7 +12,7 @@
 
 # **ALWAYS IN THIS ORDER**
 
-*App Name#Description#Version#Wasm Download Link#Additional Assets!*
+*App Name#Description#Version#Download Link#Additional Assets!*
 
 
 EX:
@@ -31,3 +31,10 @@ Clock#App that tells the time#https://DownloadLink.com#https://DownloadLinkForCl
 # Download Link format
 
 https://raw.githubusercontent.com/SuperGuy123456/MTOSApps/main/HelloWorldTest/HelloWorldTest.wasm
+
+emcc -O2 ClearScreenTest.cpp -o ClearScreenTest.wasm \
+    -s STANDALONE_WASM=1 \
+    -s INITIAL_MEMORY=6291456 \
+    -s ERROR_ON_UNDEFINED_SYMBOLS=0 \
+    -s EXPORTED_FUNCTIONS='["_main"]' \
+    -s WASM_ASYNC_COMPILATION=0

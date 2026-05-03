@@ -1,7 +1,7 @@
 /*
 FullAPITest — imports every MTOS API v1 function
 */
-
+#include <stdint.h>
 
 // import every function
 extern "C" {
@@ -89,10 +89,20 @@ extern int  Random(int min, int max);
 
 } // extern "C"
 
-// convenience: 16-bit RGB565-ish style colors in 0xRRGGBB form
-static inline int rgb(int r, int g, int b) {
-    return (r << 16) | (g << 8) | b;
+// Convert RGB888 (0xRRGGBB) to RGB565 format for LCD
+static inline uint16_t rgb(int r, int g, int b) {
+    return ((r & 0xF8) << 8) | ((g & 0xFC) << 3) | ((b & 0xF8) >> 3);
 }
+
+// RGB565 color constants
+const uint16_t BLACK   = rgb(0, 0, 0);
+const uint16_t WHITE   = rgb(255, 255, 255);
+const uint16_t RED     = rgb(255, 0, 0);
+const uint16_t GREEN   = rgb(0, 255, 0);
+const uint16_t BLUE    = rgb(0, 0, 255);
+const uint16_t YELLOW  = rgb(255, 255, 0);
+const uint16_t MAGENTA = rgb(255, 0, 255);
+const uint16_t CYAN    = rgb(0, 255, 255);
 
 int main()
 {
@@ -101,44 +111,44 @@ int main()
 
 
     // Intro
-    ClearScreen(0x000000);
-    DrawText("Full API Test", 0, 0, 0xFFFFFF, 0x000000, 2, true, false);
+    ClearScreen(BLACK);
+    DrawText("Full API Test", 0, 0, WHITE, BLACK, 2, true, false);
     Delay(2000);
 
     // Clear screen color test
-    ClearScreen(0x000000);
-    DrawText("Clear Screen Color Test", 0, 0, 0xFFFFFF, 0x000000, 2, true, false);
+    ClearScreen(BLACK);
+    DrawText("Clear Screen Color Test", 0, 0, WHITE, BLACK, 2, true, false);
     Delay(2000);
 
-    ClearScreen(0xFF0000); // red
+    ClearScreen(RED); // red
     Delay(1000);
-    ClearScreen(0x00FF00); // green
+    ClearScreen(GREEN); // green
     Delay(1000);
-    ClearScreen(0x0000FF); // blue
+    ClearScreen(BLUE); // blue
     Delay(1000);
 
     // Drawing test header
-    ClearScreen(0x000000);
-    DrawText("Drawing Test", 0, 0, 0xFFFFFF, 0x000000, 2, true, false);
+    ClearScreen(BLACK);
+    DrawText("Drawing Test", 0, 0, WHITE, BLACK, 2, true, false);
     Delay(1000);
 
     // 1) Random starfield with DrawPixel
-    ClearScreen(0x000000);
-    DrawText("Random Starfield", 0, 0, 0xFFFFFF, 0x000000, 2, true, false);
+    ClearScreen(BLACK);
+    DrawText("Random Starfield", 0, 0, WHITE, BLACK, 2, true, false);
 
     for (int i = 0; i < 800; i++) {
         int x = Random(0, 480);
         int y = Random(0, 320);
-        DrawPixel(x, y, 0xFFFFFF);
+        DrawPixel(x, y, WHITE);
     }
     Delay(2000);
 
     // 2) Rectangles: outline + filled grid
-    ClearScreen(0x000000);
-    DrawText("Rectangles", 0, 0, 0xFFFFFF, 0x000000, 2, true, false);
+    ClearScreen(BLACK);
+    DrawText("Rectangles", 0, 0, WHITE, BLACK, 2, true, false);
 
     // Outline frame
-    DrawRect(10, 30, 460, 280, 0xFFFFFF);
+    DrawRect(10, 30, 460, 280, WHITE);
 
     // Draw fewer rectangles to reduce stack usage
     FillRect(20, 50, 40, 30, rgb(255, 0, 0));
@@ -149,8 +159,8 @@ int main()
     Delay(2000);
 
     // 3) Concentric circles
-    ClearScreen(0x000000);
-    DrawText("Concentric Circles", 0, 0, 0xFFFFFF, 0x000000, 2, true, false);
+    ClearScreen(BLACK);
+    DrawText("Concentric Circles", 0, 0, WHITE, BLACK, 2, true, false);
 
     int cx = 240;
     int cy = 160;
@@ -161,8 +171,8 @@ int main()
     Delay(2000);
 
     // 4) Filled circle pattern (bubbles)
-    ClearScreen(0x000000);
-    DrawText("Bubble Pattern", 0, 0, 0xFFFFFF, 0x000000, 2, true, false);
+    ClearScreen(BLACK);
+    DrawText("Bubble Pattern", 0, 0, WHITE, BLACK, 2, true, false);
 
     for (int i = 0; i < 40; i++) {
         int r = Random(5, 30);
@@ -174,8 +184,8 @@ int main()
     Delay(2000);
 
     // 5) Diagonal lines made of pixels
-    ClearScreen(0x000000);
-    DrawText("Diagonal Pixel Lines", 0, 0, 0xFFFFFF, 0x000000, 2, true, false);
+    ClearScreen(BLACK);
+    DrawText("Diagonal Pixel Lines", 0, 0, WHITE, BLACK, 2, true, false);
 
     for (int d = 0; d < 320; d += 8) {
         int col = rgb(Random(100, 255), Random(100, 255), Random(100, 255));
@@ -187,8 +197,8 @@ int main()
     Delay(2000);
 
     // 6) Rect spiral
-    ClearScreen(0x000000);
-    DrawText("Rectangle Spiral", 0, 0, 0xFFFFFF, 0x000000, 2, true, false);
+    ClearScreen(BLACK);
+    DrawText("Rectangle Spiral", 0, 0, WHITE, BLACK, 2, true, false);
 
     int x0 = 20, y0 = 40;
     int w = 440, h = 260;
@@ -203,8 +213,8 @@ int main()
     Delay(2000);
 
     // 7) Filled rect stripes
-    ClearScreen(0x000000);
-    DrawText("Color Stripes", 0, 0, 0xFFFFFF, 0x000000, 2, true, false);
+    ClearScreen(BLACK);
+    DrawText("Color Stripes", 0, 0, WHITE, BLACK, 2, true, false);
 
     int stripeH = 40;
     for (int y = 20; y < 320; y += stripeH) {
@@ -214,24 +224,24 @@ int main()
     Delay(2000);
 
     // 8) Text alignment / size test
-    ClearScreen(0x000000);
-    DrawText("Text Test", 0, 0, 0xFFFFFF, 0x000000, 2, true, false);
+    ClearScreen(BLACK);
+    DrawText("Text Test", 0, 0, WHITE, BLACK, 2, true, false);
 
-    DrawText("Small", 10, 40, 0xFFFFFF, 0x000000, 1, true, false);
-    DrawText("Medium", 10, 70, 0xFFAA00, 0x000000, 2, true, false);
-    DrawText("Large", 10, 110, 0x00FFAA, 0x000000, 3, true, false);
+    DrawText("Small", 10, 40, WHITE, BLACK, 1, true, false);
+    DrawText("Medium", 10, 70, rgb(255, 170, 0), BLACK, 2, true, false);
+    DrawText("Large", 10, 110, rgb(0, 255, 170), BLACK, 3, true, false);
 
-    DrawText("Centered", 240, 200, 0xFFFFFF, 0x000000, 2, true, true);
+    DrawText("Centered", 240, 200, WHITE, BLACK, 2, true, true);
     Delay(3000);
 
     // 9) Optional: DrawRaw test (if you have an asset)
-    // ClearScreen(0x000000);
-    // DrawText("DrawRaw Test", 0, 0, 0xFFFFFF, 0x000000, 2, true, false);
+    // ClearScreen(BLACK);
+    // DrawText("DrawRaw Test", 0, 0, WHITE, BLACK, 2, true, false);
     // DrawRaw("/MTOS/apps/FullAPITest/assets/test.raw", 0, 20, 240, 160);
     // Delay(3000);
 
-    ClearScreen(0x000000);
-    DrawText("Full API Drawing Test Done", 0, 0, 0xFFFFFF, 0x000000, 2, true, false);
+    ClearScreen(BLACK);
+    DrawText("Full API Drawing Test Done", 0, 0, WHITE, BLACK, 2, true, false);
     Delay(2000);
 
 
