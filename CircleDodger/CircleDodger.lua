@@ -96,7 +96,8 @@ while alive do
         SPEED = SPEED + 0.05
     end
 
-    score = math.floor(elapsed / 100)
+    score = elapsed // 100
+
 end
 
 clearScreen(BG_COLOR)
