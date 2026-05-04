@@ -8,7 +8,7 @@ local ENEMY_COLOR = 0xF800    -- red
 local BG_COLOR = 0x0000       -- black
 local TEXT_COLOR = 0xFFFF     -- white
 
-local SPAWN_INTERVAL = 1500
+local SPAWN_INTERVAL = 500
 local SPEED = 1.2
 
 local enemies = {}
